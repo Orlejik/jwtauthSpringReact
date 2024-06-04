@@ -26,7 +26,7 @@ export default class AppContent extends React.Component {
         e.preventDefault();
         request(
             "POST",
-            "/login",
+            "/auth/login",
         {login: username, password: password}
         ).then((response) => {
             this.setState({componentToShow: "messages"})
@@ -36,16 +36,19 @@ export default class AppContent extends React.Component {
         })
     }
 
-    onRegister=(e,firstName, lastName, username, password) => {
+    onRegister=(e,firstName, lastName, username, email, password, rolle) => {
         e.preventDefault();
         request(
             "POST",
-            "/register",
+            "/auth/register",
             {
                 firstName: firstName,
                 lastName: lastName,
                 login: username,
-                password: password}
+                email: email,
+                password: password,
+                rolle:rolle,
+            }
         ).then((response) => {
             this.setState({componentToShow: "messages"});
             this.setState({componentToShow: "messages"});

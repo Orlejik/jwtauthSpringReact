@@ -2,48 +2,49 @@ package com.art.jwt.backend.Controllers;
 
 
 import com.art.jwt.backend.Config.UserAuthProvider;
+import com.art.jwt.backend.Services.AuthenticationService;
 import com.art.jwt.backend.Services.UserService;
 import com.art.jwt.backend.dto.CredentialsDto;
+import com.art.jwt.backend.dto.JwtAuthenticationResponse;
 import com.art.jwt.backend.dto.SignUpDto;
-import com.art.jwt.backend.dto.UserDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.net.URI;
 
 @RequiredArgsConstructor
-@Controller
-//@CrossOrigin
+@RestController
+@RequestMapping("/auth")
+@Tag(name = "Authentication")
 public class AuthController {
 
-    private final UserService userService;
-    private final UserAuthProvider userAuthProvider;
+    private final AuthenticationService authenticationService;
 
-    @CrossOrigin
-    @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody CredentialsDto credentialsDto) {
-        UserDTO user = userService.login(credentialsDto);
-
-        user.setToken(userAuthProvider.createToken(user.getLogin()));
-
-        System.out.println("__________________________________________  TOKEN ON LOGIN ____________________________________________");
-        System.out.println(user.getToken());
-        System.out.println("_______________________________________________  TOKEN ____________________________________________");
-
-        return ResponseEntity.ok(user);
-    }
+    @Operation(summary = "User registration")
     @CrossOrigin
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@RequestBody SignUpDto signUpDto) {
-        UserDTO user = userService.register(signUpDto);
-        user.setToken(userAuthProvider.createToken(user.getLogin()));
-        System.out.println("_________________________________________  TOKEN ON REGISTER ____________________________________________");
-        System.out.println(user.getToken());
-        System.out.println("_______________________________________________  TOKEN ____________________________________________");
-        return ResponseEntity.created(URI.create("/users/" + user.getId())).body(user);
+    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpDto request) {
+        System.out.println(request.getLogin());
+        System.out.println(request.getEmail());
+        System.out.println(request.getFirstName());
+        System.out.println(request.getLastName());
+        System.out.println(request.getPassword());
+        System.out.println("User registration successful");
+        System.out.println("The full request is : "+ request);
+        return authenticationService.signUp(request);
+    }
+
+    @Operation(summary = "User login")
+    @CrossOrigin
+    @PostMapping("/login")
+    public JwtAuthenticationResponse signIn(@RequestBody @Valid CredentialsDto request) {
+        System.out.println(request.getLogin());
+        System.out.println(request.getPassword());
+        System.out.println("User registration successful");
+        System.out.println("The full request is : "+ request);
+        return authenticationService.signIn(request);
     }
 }

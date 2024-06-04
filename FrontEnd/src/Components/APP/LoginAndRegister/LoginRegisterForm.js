@@ -18,10 +18,13 @@ export default class LoginRegisterForm extends React.Component {
         super(props);
         this.state = {
             active: "login",
+
             firstName: "",
             lastName: "",
             login: "",
+            email:"",
             password: "",
+            rolle: "ROLE_USER",
             onLogin: props.onLogin,
             onRegister: props.onRegister,
         };
@@ -40,10 +43,13 @@ export default class LoginRegisterForm extends React.Component {
     onSubmitRegister = (e) => {
         this.state.onRegister(
             e,
+
             this.state.firstName,
             this.state.lastName,
             this.state.login,
-            this.state.password,);
+            this.state.email,
+            this.state.password,
+            this.state.rolle,);
     }
 
 
@@ -72,12 +78,12 @@ export default class LoginRegisterForm extends React.Component {
                             id="pills-login">
                             <form onSubmit={this.onSubmitLogin}>
                                 <div className="form-outline mb-4">
-                                    <input type="login" id="loginName" name="login" className="form-control" onChange={this.onChangeHandler}/>
-                                    <label className="form-label" htmlFor="loginName"> Username</label>
+                                    <input type="login" id="loginLoginName" name="login" className="form-control" onChange={this.onChangeHandler}/>
+                                    <label className="form-label" htmlFor="loginLoginName"> Username</label>
                                 </div>
                                 <div className="form-outline mb-4">
-                                    <input type="password" id="userPassword" name="password" className="form-control" onChange={this.onChangeHandler}/>
-                                    <label className="form-label" htmlFor="userPassword"> Password</label>
+                                    <input type="password" id="userLoginPassword" name="password" className="form-control" onChange={this.onChangeHandler}/>
+                                    <label className="form-label" htmlFor="userLoginPassword"> Password</label>
                                 </div>
                                 <div>
                                     <button className="btn btn-primary btn-block mb-4" type="submit"> Login</button>
@@ -90,20 +96,29 @@ export default class LoginRegisterForm extends React.Component {
                             id="pills-register">
                             <form onSubmit={this.onSubmitRegister}>
                                 <div className="form-outline mb-4">
-                                    <input type="text" id="firstname" name="firstName" className="form-control" onChange={this.onChangeHandler}/>
+                                    <input type="text" id="firstname" name="firstName" className="form-control"
+                                           onChange={this.onChangeHandler}/>
                                     <label className="form-label" htmlFor="firstname"> Firstname</label>
                                 </div>
                                 <div className="form-outline mb-4">
-                                    <input type="text" id="lastname" name="lastName" className="form-control" onChange={this.onChangeHandler}/>
+                                    <input type="text" id="lastname" name="lastName" className="form-control"
+                                           onChange={this.onChangeHandler}/>
                                     <label className="form-label" htmlFor="lastname"> Lastname</label>
                                 </div>
                                 <div className="form-outline mb-4">
-                                    <input type="login" id="loginName" name="login" className="form-control" onChange={this.onChangeHandler}/>
-                                    <label className="form-label" htmlFor="loginName"> Username</label>
+                                    <input type="login" id="loginRegisterName" name="login" className="form-control"
+                                           onChange={this.onChangeHandler}/>
+                                    <label className="form-label" htmlFor="loginRegisterName"> Username</label>
                                 </div>
                                 <div className="form-outline mb-4">
-                                    <input type="password" id="userPassword" name="password" className="form-control" onChange={this.onChangeHandler}/>
-                                    <label className="form-label" htmlFor="userPassword"> Password</label>
+                                    <input type="email" id="userEmail" name="email" className="form-control"
+                                           onChange={this.onChangeHandler}/>
+                                    <label className="form-label" htmlFor="userEmail"> E-Mail</label>
+                                </div>
+                                <div className="form-outline mb-4">
+                                    <input type="password" id="userRegisterPassword" name="password" className="form-control"
+                                           onChange={this.onChangeHandler}/>
+                                    <label className="form-label" htmlFor="userRegisterPassword"> Password</label>
                                 </div>
                                 <div>
                                     <button className="btn btn-primary btn-block mb-4" type="submit"> Register</button>

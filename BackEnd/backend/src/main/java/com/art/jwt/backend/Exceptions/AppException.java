@@ -3,6 +3,7 @@ package com.art.jwt.backend.Exceptions;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class AppException extends RuntimeException{
 
     private final HttpStatus code;
@@ -12,7 +13,4 @@ public class AppException extends RuntimeException{
         this.code = code;
     }
 
-    public HttpStatus getCode() {
-        return code;
-    }
 }
