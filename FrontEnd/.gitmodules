@@ -1,0 +1,3 @@
+[submodule "jwtauthSpringReact"]
+	path = jwtauthSpringReact
+	url = https://github.com/Orlejik/jwtauthSpringReact
