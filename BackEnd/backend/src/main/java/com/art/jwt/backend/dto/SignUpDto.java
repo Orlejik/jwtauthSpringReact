@@ -34,5 +34,5 @@ public class SignUpDto {
     private String email;
     @Schema(description = "Password", example = "my_secret_password")
     @Size(max = 255, message = "Password should contain not more than 255 characters")
-    private char[] password;
+    private String password;
 }

@@ -21,7 +21,7 @@ public class UserService {
      *
      * @return сохраненный пользователь
      */
-    public  User save(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 

@@ -2,10 +2,7 @@ package com.art.jwt.backend.Enteties;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Data
 @Table(name = "app_user")
 public class User implements UserDetails {
@@ -50,7 +49,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return login;
     }
 
     @Override

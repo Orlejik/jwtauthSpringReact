@@ -3,7 +3,7 @@ package com.art.jwt.backend.Services;
 import com.art.jwt.backend.Config.UserAuthProvider;
 import com.art.jwt.backend.Enteties.Role;
 import com.art.jwt.backend.Enteties.User;
-import com.art.jwt.backend.dto.CredentialsDto;
+import com.art.jwt.backend.dto.SignInDto;
 import com.art.jwt.backend.dto.JwtAuthenticationResponse;
 import com.art.jwt.backend.dto.SignUpDto;
 import lombok.RequiredArgsConstructor;
@@ -12,15 +12,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserService userService;
     private final UserAuthProvider jwtService;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Регистрация пользователя
@@ -35,7 +33,7 @@ public class AuthenticationService {
                 .lastName(request.getLastName())
                 .login(request.getLogin())
                 .email(request.getEmail())
-                .password(Arrays.toString(request.getPassword()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .rolle(Role.ROLE_USER)
                 .build();
 
@@ -43,7 +41,6 @@ public class AuthenticationService {
 
         var jwt = jwtService.generateSecretToken(user);
         return new JwtAuthenticationResponse(jwt);
-
     }
 
     /**
@@ -53,7 +50,7 @@ public class AuthenticationService {
      * @return токен
      */
 
-    public  JwtAuthenticationResponse signIn(CredentialsDto request){
+    public  JwtAuthenticationResponse signIn(SignInDto request){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getLogin(),
                 request.getPassword()

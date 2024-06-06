@@ -24,7 +24,7 @@ export default class LoginRegisterForm extends React.Component {
             login: "",
             email:"",
             password: "",
-            rolle: "ROLE_USER",
+            rolle: "",
             onLogin: props.onLogin,
             onRegister: props.onRegister,
         };
